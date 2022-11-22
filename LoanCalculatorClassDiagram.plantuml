@@ -1,0 +1,54 @@
+@startuml
+
+skinparam BackgroundColor Grey
+skinparam ClassBackgroundColor 2e2e2e 
+skinparam ClassBorderThickness 1.5
+skinparam ClassBorderColor 1b1b1b
+skinparam CircledCharacterFontColor Red
+skinparam ClassAttributeFontColor Grey
+skinparam ClassFontColor white
+
+abstract class Loans
+{
+    -Interest : double
+    -TotalArea : double
+
+
+}
+
+interface ILoanCalc
+{
+    Rate : double
+
+    PrincipalAmount : double
+
+    Time : double
+
+    LoanCalc() : double
+
+    InterestCalc() : double
+}
+
+class HomeLoan
+{
+    +HomeLoan()
+}
+
+class StudentLoan
+{
+    +StudentLoan()
+}
+
+class PersonalLoan
+{
+    +PersonalLoan()
+}
+
+
+ILoanCalc <|-- Loans
+
+Loans <|-- StudentLoan
+Loans <|-right- HomeLoan
+Loans <|-left- PersonalLoan
+
+@enduml 

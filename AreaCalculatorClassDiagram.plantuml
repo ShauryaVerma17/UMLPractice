@@ -1,0 +1,39 @@
+@startuml
+
+skinparam BackgroundColor Grey
+skinparam ClassBackgroundColor 2e2e2e 
+skinparam ClassBorderThickness 1.5
+skinparam ClassBorderColor 1b1b1b
+skinparam CircledCharacterFontColor Red
+skinparam ClassAttributeFontColor Grey
+skinparam ClassFontColor white
+
+abstract class Shape
+{
+    + CalcArea() : double
+}
+
+class Rectangle 
+{
+    +Length : double
+    +Width : double
+    -area : double
+
+    +Rectangle()
+}
+
+class Triangle 
+{
+    +sideA : double
+    +sideB : double
+    +sideC : double
+    -area : double
+    -semiP : double
+
+    +Triangle()
+}
+
+Shape <|-right- Rectangle
+Shape <|-left- Triangle
+
+@enduml 

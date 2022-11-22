@@ -1,0 +1,38 @@
+@startuml
+
+skinparam BackgroundColor Grey
+skinparam ActivityBackgroundColor 2e2e2e
+skinparam ActivityFontColor White
+skinparam ActivityStartColor Green
+skinparam ActivityEndColor Maroon
+skinparam ArrowThickness 2
+
+
+start
+
+:Application starts;
+
+:Console takes input for side lenths 
+of the triangle and rectangle;
+
+if(Lengths are of correct type?) then (<color:white>Incorrect)
+    :Application throws an error message
+    caught by the try-catch block;
+    :Error is logged;
+    end
+else (<color:white>Correct)
+    :Application continues the checks;
+    if(Lengths are positive?) then (<color:white>Positive)
+        :Application calculates areas of the two shapes
+        and prints the results;
+        :Results are logged;
+        end
+    else (<color:white>Non Positive)
+        :Application prints an message 
+        telling the user about the error;
+        :Error is logged;
+        end
+
+
+
+@enduml

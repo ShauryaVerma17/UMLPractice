@@ -1,0 +1,47 @@
+@startuml
+
+skinparam BackgroundColor Grey
+skinparam ActorBackgroundColor 2e2e2e
+skinparam ActorFontColor White
+skinparam ParticipantBackgroundColor 2e2e2e
+skinparam ParticipantFontColor White 
+skinparam ArrowFontColor White
+
+actor User as User
+participant "HomePage \n (IndexGuest)" as Home
+participant "Login Page" as Login
+participant "System.Security.Identity" as Security
+participant "Identity.SignInManager\n(Microsoft.AspNetCore namespace)" as SignIn
+
+User -> Home : Click login 
+Home --> User : Returns login page to user
+
+User -> Login : Submit login details 
+
+Login -> Security : Check login details 
+
+alt User is authenticated
+    Security --> Login : IsAuthenticated == True
+    Login --> User : Sends user to home page of logged in user (Index)
+
+else Model State is not valid
+    Login --> User : User is kept at the same login page 
+
+else Check for password sign using SignInManager
+    Login -> SignIn : Send username and password
+    alt If attempted signin is not successful 
+        alt Check if 2fa is enabled
+            SignIn --> User : If 2fa is required user is redirected to 2fa page
+        else If user is locked out 
+            SignIn --> User : Send user to back to the same page with notification telling that their account is locked out
+        else Email verification is required 
+            SignIn --> User : Redirect to email verification page
+        else User Credentials are invalid
+            Login --> User : User is kept at the same login page
+        end
+    else Attempted signin is successful 
+        Login -> Login : Log : "User logged in"
+        Login --> User : Sends user to home page of logged in user (Index)
+    end
+end
+@enduml
